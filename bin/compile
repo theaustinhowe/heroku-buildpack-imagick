@@ -12,14 +12,24 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 VENDOR_DIR="$BUILD_DIR/vendor"
 
+if [ -z "$3" ]
+  then
+    echo "-----> Grabbing env variables from argument 3"
+    ENV_DIR=$3 # remember, it was the 3rd parameter passed in up there
+    for KEY in ENV_VAR1 ENV_VAR2; do
+      [ -f $ENV_DIR/$KEY ] && export "$KEY=$(cat $ENV_DIR/$KEY)"
+      [ -z "${!KEY}" ] && echo "You didn't set $KEY, and this is required." && exit 1
+    done
+fi
+
 
 echo "-----> Install ImageMagick"
 
 IMAGE_MAGICK_VERSION="${IMAGE_MAGICK_VERSION:-6.9.3-7}"
-INSTALL_DIR="$VENDOR_DIR/imagemagick"
-CACHE_FILE="$CACHE_DIR/imagemagick-${IMAGE_MAGICK_VERSION}-compiled.tar.gz"
+IMAGE_MAGICK_INSTALL_DIR="$VENDOR_DIR/imagemagick"
+IMAGE_MAGICK_CACHE_FILE="$CACHE_DIR/imagemagick-${IMAGE_MAGICK_VERSION}-compiled.tar.gz"
 
-if [ ! -f $CACHE_FILE ]; then
+if [ ! -f $IMAGE_MAGICK_CACHE_FILE ]; then
   # install imagemagick
   IMAGE_MAGICK_FILE="ImageMagick-$IMAGE_MAGICK_VERSION.tar.xz"
   IMAGE_MAGICK_DIR="ImageMagick-$IMAGE_MAGICK_VERSION"
@@ -39,9 +49,9 @@ if [ ! -f $CACHE_FILE ]; then
 
   echo "-----> Building ImageMagick"
   cd $IMAGE_MAGICK_DIR
-  export CPPFLAGS="-I$INSTALL_DIR/include"
-  export LDFLAGS="-L$INSTALL_DIR/lib"
-  ./configure --prefix=$INSTALL_DIR
+  export CPPFLAGS="-I$IMAGE_MAGICK_INSTALL_DIR/include"
+  export LDFLAGS="-L$IMAGE_MAGICK_INSTALL_DIR/lib"
+  ./configure --prefix=$IMAGE_MAGICK_INSTALL_DIR
   make && make install
   cd ..
   rm -rf $IMAGE_MAGICK_DIR
@@ -49,15 +59,23 @@ if [ ! -f $CACHE_FILE ]; then
   # cache for future deploys
   echo "-----> Caching ImageMagick installation"
   cd $VENDOR_DIR
-  REL_INSTALL_DIR="imagemagick"
-  tar czf $REL_INSTALL_DIR.tar.gz $REL_INSTALL_DIR
-  mv $REL_INSTALL_DIR.tar.gz $CACHE_FILE
+  REL_IMAGE_MAGICK_INSTALL_DIR="imagemagick"
+  tar czf $REL_IMAGE_MAGICK_INSTALL_DIR.tar.gz $REL_IMAGE_MAGICK_INSTALL_DIR
+  mv $REL_IMAGE_MAGICK_INSTALL_DIR.tar.gz $IMAGE_MAGICK_CACHE_FILE
 
 else
   # cache exists, extract it
-  echo "-----> Extracting cached ImageMagick $CACHE_FILE => $VENDOR_DIR"
-  tar xzf $CACHE_FILE -C $VENDOR_DIR
+  echo "-----> Extracting cached ImageMagick $IMAGE_MAGICK_CACHE_FILE => $VENDOR_DIR"
+  tar xzf $IMAGE_MAGICK_CACHE_FILE -C $VENDOR_DIR
 fi
+
+# update PATH and LD_LIBRARY_PATH
+echo "-----> Updating environment variables"
+PROFILE_PATH="$BUILD_DIR/.profile.d/imagemagick.sh"
+ACTUAL_INSTALL_PATH="$HOME/vendor/imagemagick"
+mkdir -p $(dirname $PROFILE_PATH)
+echo "export PATH=$ACTUAL_INSTALL_PATH/bin:\$PATH" >> $PROFILE_PATH
+echo "export LD_LIBRARY_PATH=$ACTUAL_INSTALL_PATH/lib:\$LD_LIBRARY_PATH" >> $PROFILE_PATH
 
 echo "-----> Install Imagick"
 IMAGICK_VERSION="${IMAGICK_VERSION:-3.4.1}"
@@ -90,7 +108,7 @@ if [ ! -f $IMAGICK_CACHE_FILE ]; then
   export CPPFLAGS="-I$IMAGICK_INSTALL_DIR/include"
   export LDFLAGS="-L$IMAGICK_INSTALL_DIR/lib"
   phpize
-  ./configure --prefix=$IMAGICK_INSTALL_DIR
+  ./configure --prefix=$IMAGICK_INSTALL_DIR --with-imagick=$IMAGE_MAGICK_INSTALL_DIR
   make
   mv modules/imagick.so $IMAGICK_INSTALL_FILE
   cd ..
@@ -105,11 +123,3 @@ else
   echo "-----> Extracting cached Imagick $IMAGICK_CACHE_FILE => $VENDOR_DIR"
   cp $IMAGICK_CACHE_FILE $IMAGICK_INSTALL_FILE
 fi
-
-# update PATH and LD_LIBRARY_PATH
-echo "-----> Updating environment variables"
-PROFILE_PATH="$BUILD_DIR/.profile.d/imagemagick.sh"
-ACTUAL_INSTALL_PATH="$HOME/vendor/imagemagick"
-mkdir -p $(dirname $PROFILE_PATH)
-echo "export PATH=$ACTUAL_INSTALL_PATH/bin:\$PATH" >> $PROFILE_PATH
-echo "export LD_LIBRARY_PATH=$ACTUAL_INSTALL_PATH/lib:\$LD_LIBRARY_PATH" >> $PROFILE_PATH
