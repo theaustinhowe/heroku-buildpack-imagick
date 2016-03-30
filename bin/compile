@@ -16,9 +16,8 @@ if [ ! -z "$3" ]
   then
     echo "-----> Grabbing env variables from argument 3"
     ENV_DIR=$3 # remember, it was the 3rd parameter passed in up there
-    for KEY in ENV_VAR1 ENV_VAR2; do
+    for KEY in IMAGE_MAGICK_VERSION IMAGICK_VERSION; do
       [ -f $ENV_DIR/$KEY ] && export "$KEY=$(cat $ENV_DIR/$KEY)"
-      [ -z "${!KEY}" ] && echo "You didn't set $KEY, and this is required." && exit 1
     done
 fi
 
