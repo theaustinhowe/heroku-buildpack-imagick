@@ -12,7 +12,7 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 VENDOR_DIR="$BUILD_DIR/vendor"
 
-if [ -z "$3" ]
+if [ ! -z "$3" ]
   then
     echo "-----> Grabbing env variables from argument 3"
     ENV_DIR=$3 # remember, it was the 3rd parameter passed in up there
