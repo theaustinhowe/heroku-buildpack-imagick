@@ -84,7 +84,7 @@ echo "export PATH=$ACTUAL_INSTALL_PATH/bin:\$PATH" >> $PROFILE_PATH
 echo "export LD_LIBRARY_PATH=$ACTUAL_INSTALL_PATH/lib:\$LD_LIBRARY_PATH" >> $PROFILE_PATH
 
 echo "-----> Install Imagick"
-mkdir $IMAGICK_INSTALL_DIR
+[ -f $IMAGICK_INSTALL_DIR ] && mkdir $IMAGICK_INSTALL_DIR
 
 if [ ! -f $IMAGICK_CACHE_FILE ]; then
   # install imagick
