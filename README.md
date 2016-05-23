@@ -5,3 +5,6 @@ This is a [Heroku buildpack](http://devcenter.heroku.com/articles/buildpacks) fo
 
 Set the version of ImageMagick using the IMAGE_MAGICK_VERSION env var in your environment.
 Set the version of Imagick using the IMAGICK_VERSION env var in your environment.
+
+Run locally:
+```bin/compile /tmp/build /tmp/cache```

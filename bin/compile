@@ -12,6 +12,9 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 VENDOR_DIR="$BUILD_DIR/vendor"
 
+mkdir -p $BUILD_DIR
+mkdir -p $CACHE_DIR
+
 if [ ! -z "$3" ]
   then
     echo "-----> Grabbing env variables from argument 3"
@@ -24,7 +27,7 @@ fi
 
 echo "-----> Install ImageMagick"
 
-IMAGE_MAGICK_VERSION="${IMAGE_MAGICK_VERSION:-6.9.3-8}"
+IMAGE_MAGICK_VERSION="${IMAGE_MAGICK_VERSION:-6.9.4-4}"
 IMAGE_MAGICK_INSTALL_DIR="$VENDOR_DIR/imagemagick"
 IMAGE_MAGICK_CACHE_FILE="$CACHE_DIR/imagemagick-${IMAGE_MAGICK_VERSION}-compiled.tar.gz"
 
@@ -112,6 +115,7 @@ if [ ! -f $IMAGICK_CACHE_FILE ]; then
   phpize
   ./configure --prefix=$IMAGICK_INSTALL_DIR --with-imagick=$IMAGE_MAGICK_INSTALL_DIR
   make
+  echo "-----> Moving to $IMAGICK_INSTALL_FILE"
   mv modules/imagick.so $IMAGICK_INSTALL_FILE
   cd ..
   rm -rf $IMAGICK_DIR
