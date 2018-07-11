@@ -59,7 +59,7 @@ if [ ! -f $IMAGE_MAGICK_CACHE_FILE ]; then
   cd $IMAGE_MAGICK_DIR
   export CPPFLAGS="-I$IMAGE_MAGICK_INSTALL_DIR/include"
   export LDFLAGS="-L$IMAGE_MAGICK_INSTALL_DIR/lib"
-  ./configure --prefix=$IMAGE_MAGICK_INSTALL_DIR
+  ./configure --prefix=$IMAGE_MAGICK_INSTALL_DIR --without-gvc
   make && make install
   cd ..
   rm -rf $IMAGE_MAGICK_DIR
