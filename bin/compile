@@ -38,6 +38,7 @@ IMAGICK_INSTALL_FILE="$PHP_EXT_DIR/imagick.so"
 IMAGICK_CACHE_FILE="$CACHE_DIR/imagick-${IMAGICK_VERSION}-${IMAGE_MAGICK_VERSION}.so"
 
 LIBWEBP_VERSION="1.0.2"
+LIBWEBP_INSTALL_DIR="$VENDOR_DIR/imagemagick-webp"
 
 if [ ! -f $IMAGE_MAGICK_CACHE_FILE ]; then
   LIBWEBP_FILE="libwebp-$LIBWEBP_VERSION.tar.gz"
@@ -49,7 +50,7 @@ if [ ! -f $IMAGE_MAGICK_CACHE_FILE ]; then
 
   echo "-----> Building libwebp"
   cd $LIBWEBP_DIR
-  ./configure --prefix=$INSTALL_DIR --disable-static
+  ./configure --prefix=$LIBWEBP_INSTALL_DIR --disable-static
   make && make install
   cd ..
   rm -rf $LIBWEBP_DIR
