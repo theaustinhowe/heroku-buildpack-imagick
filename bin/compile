@@ -44,15 +44,15 @@ if [ ! -f $IMAGE_MAGICK_CACHE_FILE ]; then
   LIBWEBP_DIR="libwebp-$LIBWEBP_VERSION"
   LIBWEBP_URL="http://downloads.webmproject.org/releases/webp/$LIBWEBP_FILE"
 
-  echo "-----> Downloading libwebp from $LIBWEBP_URL"
-  curl -L --silent $LIBWEBP_URL | tar xz
+  # echo "-----> Downloading libwebp from $LIBWEBP_URL"
+  # curl -L --silent $LIBWEBP_URL | tar xz
 
-  echo "-----> Building libwebp"
-  cd $LIBWEBP_DIR
-  ./configure --prefix=$IMAGE_MAGICK_INSTALL_DIR --disable-static
-  make && make install
-  cd ..
-  rm -rf $LIBWEBP_DIR
+  # echo "-----> Building libwebp"
+  # cd $LIBWEBP_DIR
+  # ./configure --prefix=$IMAGE_MAGICK_INSTALL_DIR --disable-static
+  # make && make install
+  # cd ..
+  # rm -rf $LIBWEBP_DIR
 
   # install imagemagick
   IMAGE_MAGICK_FILE="ImageMagick-$IMAGE_MAGICK_VERSION.tar.xz"
@@ -77,7 +77,7 @@ if [ ! -f $IMAGE_MAGICK_CACHE_FILE ]; then
   export PATH="$IMAGE_MAGICK_INSTALL_DIR/bin:$PATH"
   export CPPFLAGS="-I$IMAGE_MAGICK_INSTALL_DIR/include"
   export LDFLAGS="-L$IMAGE_MAGICK_INSTALL_DIR/lib"
-  ./configure --prefix=$IMAGE_MAGICK_INSTALL_DIR --with-webp --without-gvc
+  ./configure --prefix=$IMAGE_MAGICK_INSTALL_DIR --without-gvc
   make && make install
   cd ..
   rm -rf $IMAGE_MAGICK_DIR
