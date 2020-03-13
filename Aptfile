@@ -1,0 +1,3 @@
+libde265-dev
+libheif-dev
+:repo:deb http://ppa.launchpad.net/strukturag/libheif/ubuntu xenial main

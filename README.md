@@ -7,4 +7,4 @@ Set the version of ImageMagick using the IMAGE_MAGICK_VERSION env var in your en
 Set the version of Imagick using the IMAGICK_VERSION env var in your environment.
 
 Run locally:
-```bin/compile /tmp/build /tmp/cache```
+```sudo STACK=heroku-18 bin/compile /tmp/build /tmp/cache```
