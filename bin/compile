@@ -29,8 +29,6 @@ LP_DIR=`cd $(dirname $0); cd ..; pwd`
 $LP_DIR/bin/install-libraries "$@"
 source $LP_DIR/export
 
-exit
-
 echo "-----> Install ImageMagick"
 
 IMAGE_MAGICK_VERSION="${IMAGE_MAGICK_VERSION:-6.9.11-0}"
