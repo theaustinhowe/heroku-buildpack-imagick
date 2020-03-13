@@ -1,2 +1,3 @@
 libde265-dev
 libheif-dev
+:repo:deb https://launchpad.net/~strukturag/+archive/ubuntu/libheif xenial main universe

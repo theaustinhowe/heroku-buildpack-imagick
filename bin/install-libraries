@@ -50,8 +50,6 @@ APT_SOURCES="$APT_SOURCELIST_DIR/sources.list"
 
 APT_VERSION=$(apt-get -v | awk 'NR == 1{ print $2 }')
 
-add-apt-repository -y ppa:strukturag/libheif
-
 case "$APT_VERSION" in
   0* | 1.0*) APT_FORCE_YES="--force-yes";;
   *)         APT_FORCE_YES="--allow-downgrades --allow-remove-essential --allow-change-held-packages";;
