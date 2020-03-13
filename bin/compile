@@ -25,11 +25,11 @@ if [ ! -z "$3" ]
 fi
 
 echo "-----> Installing libaries needed for ImageMagick"
-SCRIPT=`realpath $0`
-SCRIPTPATH=`dirname $SCRIPT`
-ROOTPATH=`dirname $SCRIPTPATH`
-$SCRIPTPATH/install-libraries "$@"
-source $ROOTPATH/export
+LP_DIR=`cd $(dirname $0); cd ..; pwd`
+$LP_DIR/bin/install-libraries "$@"
+source $LP_DIR/export
+
+exit
 
 echo "-----> Install ImageMagick"
 
