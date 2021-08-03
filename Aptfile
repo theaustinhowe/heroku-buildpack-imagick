@@ -17,6 +17,8 @@ ghostscript
 libtiff-dev
 libjpeg-dev
 libheif-dev
+libopenjp2-7
+libopenjp2-tools
 libopenjp2-7-dev
 librsvg2-dev
 :repo:deb http://ppa.launchpad.net/strukturag/libheif/ubuntu xenial main
