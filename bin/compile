@@ -54,7 +54,7 @@ if [ ! -f $IMAGE_MAGICK_CACHE_FILE ]; then
 
   echo "-----> Building libwebp"
   cd $LIBWEBP_DIR
-  ./configure --prefix=$IMAGE_MAGICK_INSTALL_DIR --disable-static
+  ./configure --prefix=$IMAGE_MAGICK_INSTALL_DIR --disable-static --enable-libwebpdemux --enable-libwebpmux --enable-libwebpdecoder --enable-libwebpextras
   make && make install
   cd ..
   rm -rf $LIBWEBP_DIR
