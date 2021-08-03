@@ -104,11 +104,11 @@ fi
 # update PATH and LD_LIBRARY_PATH
 echo "-----> Updating environment variables"
 PROFILE_PATH="$BUILD_DIR/.profile.d/imagemagick.sh"
-ACTUAL_INSTALL_PATH="$HOME/vendor/imagemagick"
+ACTUAL_INSTALL_PATH="$HOME/imagemagick_vendor/imagemagick"
 mkdir -p $(dirname $PROFILE_PATH)
 echo "export PATH=$ACTUAL_INSTALL_PATH/bin:\$PATH" >> $PROFILE_PATH
 echo "export LD_LIBRARY_PATH=$ACTUAL_INSTALL_PATH/lib:\$LD_LIBRARY_PATH" >> $PROFILE_PATH
-echo "export MAGICK_CONFIGURE_PATH=$ACTUAL_INSTALL_PATH/etc/ImageMagick-6" >> $PROFILE_PATH
+echo "export MAGICK_CONFIGURE_PATH=$ACTUAL_INSTALL_PATH/etc/ImageMagick-7" >> $PROFILE_PATH
 
 echo "-----> Install Imagick"
 [ -f $IMAGICK_INSTALL_DIR ] && mkdir $IMAGICK_INSTALL_DIR
