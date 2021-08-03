@@ -10,10 +10,11 @@ indent() {
 
 BUILD_DIR=$1
 CACHE_DIR=$2
-VENDOR_DIR="$BUILD_DIR/image-vendor"
+VENDOR_DIR="$BUILD_DIR/imagemagick_vendor"
 
 mkdir -p $BUILD_DIR
 mkdir -p $CACHE_DIR
+mkdir -p $VENDOR_DIR
 
 if [ ! -z "$3" ]
   then

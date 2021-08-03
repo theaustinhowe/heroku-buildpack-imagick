@@ -1,3 +1,7 @@
 libde265-dev
 libheif-dev
+libwebp-dev
+libopenjp2-7-dev
+librsvg2-dev
+libde265-dev
 :repo:deb http://ppa.launchpad.net/strukturag/libheif/ubuntu xenial main
