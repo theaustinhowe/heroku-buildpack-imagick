@@ -1,6 +1,6 @@
 libde265-dev
 libheif-dev
-libwebpmux
+libwebpmux3
 libwebp-dev
 libopenjp2-7-dev
 librsvg2-dev
